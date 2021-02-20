@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class HangmanApp {
     public static void main(String[] args) {
 
-        // TODO add welcome messages and to inform user what are rules of the game
+        // add welcome messages and to inform user what are rules of the game
         System.out.println("Welcome in the Hangman game! :)\n\n" +
                             "Rules:\n" +
                             "Main goal of the game is to guess a hidden word, character by character.\n" +
@@ -13,26 +13,29 @@ public class HangmanApp {
                             "When you lose all tries then the game is over.\n" +
                             "There also will be a picture of person which will show how many tries you still have.\n");
 
-        // TODO add code to check if user want to play
+        // add code to check if user want to play
         System.out.println("Okay, wanna play? :)" );
 
+        Scanner userInput = new Scanner(System.in);
         boolean incorrectInput = true;
         char charToCheck;
         do {
             System.out.println("Enter 'Y' if you want to start a game or enter 'N' if not and exit from the game.");
-            Scanner userInput = new Scanner(System.in);
             String userAnswer = userInput.nextLine();
-            charToCheck = userAnswer.charAt(0);
-            if(charToCheck == 'Y' || charToCheck == 'N')
+            charToCheck = userAnswer.toLowerCase().charAt(0);
+            if(charToCheck == 'y' || charToCheck == 'n')
                 incorrectInput = false;
 
-            userInput.close();
         } while(incorrectInput);
+        userInput.close();
 
-        // TODO start a game if input == 'Y' else terminate the program
-
-
-
+        // start a game if input == 'Y' ELSE terminate the program
+        Game game;
+        if(charToCheck == 'y'){
+            game = new Game();
+        } else {
+            System.exit(-1);
+        }
 
         // TODO add code to check if user want to play again
     }
