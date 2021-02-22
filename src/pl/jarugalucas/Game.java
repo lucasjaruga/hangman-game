@@ -12,7 +12,7 @@ public class Game {
 
     private int userTries;
     private final ArrayList<String> dictionary;
-    public String wordToGuess;
+    private String wordToGuess;
     private StringBuilder currentUserGuessedWord;
     public ArrayList<Character> userGuessedCharacters;
 

@@ -54,7 +54,6 @@ public class HangmanApp {
                 }
                 System.out.println(game.drawPicture() + "\n");
                 System.out.println("Word to guess: " + game.getCurrentUserGuessedWord());
-                System.out.println(game.wordToGuess);
             }
         }
 
