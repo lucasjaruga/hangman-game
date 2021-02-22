@@ -6,14 +6,13 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Game class - responsible for a game logic
+ * Game engine class - responsible for a game logic
  */
 public class Game {
 
-    private final int maxTries = 7;
-    private int userTries = 0;
+    private int userTries;
     private final ArrayList<String> dictionary;
-    private String wordToGuess;
+    public String wordToGuess;
     private StringBuilder secretWord;
     public ArrayList<Character> userGuesses;
 
@@ -57,8 +56,75 @@ public class Game {
         this.userTries = userTries;
     }
 
-    public boolean isGameOver(){
+    public void prepareGame(){
+        System.out.println("Superb! :D Let's play!");
+        wordToGuess();
+        setUserTries(0);
+        userGuesses.clear();
+        System.out.println(drawPicture());
+        System.out.println("\nWord to guess: " +
+                "" + getSecretWord());
+    }
+
+    public boolean isFinished(){
+
+        boolean result;
+        if(userUsedAllTries()) {
+            System.out.println("\nGAME OVER! You used all your tries :(");
+            System.out.println("The word was: " + wordToGuess);
+            if(wantToPlayAgain()){
+                prepareGame();
+                result = false;
+            } else {
+                System.out.println("Exiting the game... bye bye!");
+                result = true;
+            }
+        } else if (userGuessedTheWord()) {
+            System.out.println("\nGratz! You did it! This is a correct word! :)");
+            if (wantToPlayAgain()) {
+                prepareGame();
+                result = false;
+            } else {
+                System.out.println("Exiting the game... bye bye!");
+                result = true;
+            }
+        } else {
+            result = false;
+        }
+
+        return result;
+    }
+
+    public boolean userUsedAllTries(){
+        final int maxTries = 7;
         return userTries == maxTries;
+    }
+
+    public boolean userGuessedTheWord(){
+
+        StringBuilder userGuess = new StringBuilder();
+        for(int i = 0; i < secretWord.length(); i++){
+            if(i%2 == 0){
+                userGuess.append(secretWord.charAt(i));
+            }
+        }
+        return userGuess.toString().equals(wordToGuess);
+    }
+
+    public boolean wantToPlayAgain(){
+        boolean incorrectInput = true;
+        char charToCheck;
+        do {
+            Scanner userInput = new Scanner(System.in);
+            System.out.println("Wanna play again? Enter 'Y' or 'N'");
+            String userAnswer = userInput.nextLine();
+            charToCheck = userAnswer.toLowerCase().charAt(0);
+            if(charToCheck == 'y' || charToCheck == 'n')
+                incorrectInput = false;
+
+        } while(incorrectInput);
+
+        return charToCheck == 'y';
     }
 
     public boolean checkUserGuess(char userCharGuess){
@@ -68,7 +134,6 @@ public class Game {
         while(iterator.hasNext()) {
             if (iterator.next().equals(userCharGuess)) {
                 System.out.println("You've already tried this one. Try another one :)");
-                System.out.println(secretWord);
                 alreadyCheck = true;
                 break;
             }
