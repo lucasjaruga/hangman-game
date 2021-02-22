@@ -39,7 +39,6 @@ public class HangmanApp {
         game.prepareGame();
 
         // playing the game
-
         while(!game.isFinished()){
             System.out.print("Guess a character: ");
             charToCheck = userInput.nextLine().toLowerCase().charAt(0);
@@ -54,7 +53,7 @@ public class HangmanApp {
                     System.out.println("Ups! There is no letter like this one :(\n");
                 }
                 System.out.println(game.drawPicture() + "\n");
-                System.out.println("Word to guess: " + game.getSecretWord());
+                System.out.println("Word to guess: " + game.getCurrentUserGuessedWord());
                 System.out.println(game.wordToGuess);
             }
         }
